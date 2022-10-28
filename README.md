@@ -1,4 +1,4 @@
-# Chaquopy Matplotlib demo
+# Chaquopy Rectification demo
 
 
 * The [top-level](https://github.com/chaquo/chaquopy-matplotlib/blob/master/build.gradle) and 
