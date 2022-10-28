@@ -3,10 +3,13 @@ package com.chaquo.myapplication
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chaquo.python.PyException
@@ -33,6 +36,18 @@ class MainActivity : AppCompatActivity() {
                 val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                 findViewById<ImageView>(R.id.imageView).setImageBitmap(bitmap)
 
+
+                val imageAsString = stringImage(bytes)
+
+                val rectModule = py.getModule("rectification")
+
+
+                val test = rectModule.callAttr("test")
+                findViewById<TextView>(R.id.test).text = test.toString()
+                Log.d("PyObj", "$test")
+
+                rectModule.callAttr("rectify_image", imageAsString).toJava(ByteArray::class.java)
+
                 currentFocus?.let {
                     (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
                         .hideSoftInputFromWindow(it.windowToken, 0)
@@ -41,5 +56,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+
+    fun stringImage(bytes: ByteArray): String {
+        return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 }

@@ -11,3 +11,6 @@ def plot(x, y):
     f = io.BytesIO()
     plt.savefig(f, format="png")
     return f.getvalue()
+
+def test():
+    return 'test'
