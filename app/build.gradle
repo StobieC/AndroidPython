@@ -23,7 +23,7 @@ android {
             pip {
                 install "matplotlib"
                 install "numpy"
-                install "opencv-python"
+                install "opencv-contrib-python"
             }
         }
     }
